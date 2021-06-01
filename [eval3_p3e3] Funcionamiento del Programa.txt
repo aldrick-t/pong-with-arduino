@@ -1,0 +1,157 @@
+﻿JUNIO 2021
+
+
+
+
+
+
+
+
+
+
+PONG! en Arduino
+Proyecto 1 
+4B-VMT Utiliza y programa tarjetas electrónicas de control
+Equipo:
+Padilla Ávila Saul Emiliano
+Sánchez Zarate André Karim
+Tadeo Arellano Aldrick Victor
+Valencia López Danna Rosaura 
+Marco Teórico:
+Arduino es un sistema digital programable con un microcontrolador con el propósito de facilitar 
+la parte electrónica en el desarrollo de diferentes proyectos. Es muy importante tener las 
+librerías Adafruit_GFX.h y Adafruit_SSD1306.h para que se pueda compilar el código, de otro 
+modo no funcionará. Aparte de estas 2 librerías, también se incluyeron 2 librerías del mismo 
+Arduino y son SPI.h y Wire.h. La librería de SPI es utilizada por microcontroladores para 
+comunicarse con uno o más dispositivos periféricos rápidamente en distancias cortas y también 
+se puede utilizar para la comunicación entre dos microcontroladores. La librería Wire.h 
+estándar de Arduino le permite comunicarse con dispositivos por bus I2C (Inter-Integrated 
+Circuit o 2 alambres). La librería   Adafruit_GFX.h sirve para varios displays y sirve para poner 
+gráficos simples como puntos, líneas, círculos, etc. Y la librería Adafruit SSD1306 es la específica 
+para las pantallas OLED basadas en el controlador SSD1306 y funciona tanto para pantallas I2C 
+como SP. Las pantallas OLED son pantallas que utilizan diodos orgánicos emisores de luz 
+capaces de consumir muy poca energía, son muy delgadas, se comunican por I2C o SPI y 
+producen una imagen más brillante y nítida que una pantalla LCD. Y con este proyecto de 
+programación queremos lograr un pequeño juego de pong en el cual puedan jugar 2 personas, 
+que la puntuación máxima sea de 10 puntos, que pueda haber empate, se pueda reiniciar el 
+juego en cualquier momento, pero lo más importante es que haya diversión al jugar.
+ 
+Diagrama Eléctrico:
+  
+ 
+Programa:
+Encontrar programa completo en: https://github.com/aldrick-t/pong-with-arduino.git 
+Además, será disponible en los documentos anexos como:
+eval3_p3e3.ino 
+eval3_p3e3.txt 
+Función del Programa:
+Al inicio se encuentra las bibliotecas usadas para este programa, son cuatro en total. Estas 
+bibliotecas son para poder usar el display correctamente, en estas se encuentran las funciones 
+requeridas para imprimir todos los elementos usados en el programa. Después de declarar 
+estas bibliotecas para su futuro uso en el resto del programa, se asignan nombres a los pines 
+que se usaran. Esto para evitar la confusión en su uso repetido en el programa, estos mismos se 
+declaran como constantes para evitar que se puedan cambiar accidentalmente. A continuación, 
+se declaran ciertas constantes que se pueden usar para modificar el comportamiento del juego.
+De aquí pasamos a variables que se usan para declarar el valor del puntaje de los jugadores 
+además del puntaje máximo que se puede obtener. Después de aquí se presenta los valores de 
+el alto y ancho de la pantalla que se usaran para habilitar el uso de la pantalla a continuación. 
+Aquí se configura la pantalla a las especificaciones que tenemos para que el programa pueda 
+entender la función y los límites que tiene. De aquí se mencionan las funciones de 
+“drawCourt( )” y “drawScore( )” en este punto simplemente se menciona la existencia de estas 
+funciones sin tener un contenido. 
+Aquí declaramos una función llamada “pongIntro( )” donde se designa una introducción al 
+juego. Esta introducción se imprime cada vez que se inicia el Arduino. Aquí se hacen varios 
+procesos. El primero es limpiar el display, es decir, se ponen todos los pixeles en modo bajo y se 
+apagan, al mismo tiempo se borra la memoria que tiene el proceso del display. De aquí se 
+declara un ciclo “for” para poder imprimir una secuencia de rectángulos con esquinas redondas. 
+Este ciclo se repite hasta llenar la pantalla de estos rectángulos. Poco después se borran y se 
+imprimen dos líneas de texto diciendo “PONG! 2 player”. Aquí se usa la función 
+“display.display( )” para poder imprimir todo lo anterior. Esta función se describe con claridad 
+aquí porque se usará próximamente en el la sección de “setup( )”. Después de esta función, se 
+declaran mas variables de distintos tipos de datos. En estas variables describimos la posición de 
+la pelota en primer inicio además de la dirección que debe llevar. Además, se declara la 
+posición de inicio de las paletas de juego que controlaran los jugadores. 
+En este punto entramos la sección de “setup( )”. Aquí adentro de esta sección ponemos todo el 
+código que queremos ejecutar una sola vez. Para empezar, se crea una nueva variable que 
+registra el tiempo desde que se ejecuta el programa. Después, se inicia y configura la pantalla 
+para su uso. En esta función de “display.begin( )” se usan dos parámetros, estos son para 
+configurar el voltaje máximo a utilizar y el “address” de la pantalla que en nuestro caso es 0x78, 
+pero se utiliza 0x3C siendo el mas compatible con nuestra pantalla. A continuación, se declaran 
+los “pinMode” de todos lo pines a usar. Además, se ponen en un estado regularmente alto a los 
+pines que corresponden a los pulsadores, haciendo que se inviertan las señales. Después, se 
+inicia una condición “while” para poder ejecutar la introducción desarrollada anteriormente. 
+Finalmente, en esta parte se utilizan las funciones “drawCourt” y “drawScore” 
+correspondientes. A continuación, se explicará sobre las funciones a utilizar.
+La segunda función que creamos es el “drawCourt( )” que imprime un marco en la pantalla 
+creando unas paredes para que se pueda visualizar los límites del área del juego.
+Después de ahí, se tiene otra función que imprime el puntaje de cada jugador. Usando un 
+método similar al que uso para imprimir el texto en la introducción. Este se actualiza después 
+de que marca cada punto.
+A continuación, se tienen 3 funciones que se utilizan para controlar tres indicadores LED, dos 
+son para indicar quien gano y el tercero es para marcar si hubo un reinicio. En estas funciones 
+hay procesos básicos para hacer que parpadee el indicador 4 veces de forma repetida y rápida.
+De aquí se declara una función con el nombre de “gameOver( )” que consiste en tres 
+condiciones si se acaba el juego, esta función es usada si se llega al puntaje máximo o si se 
+reinicia el juego. La primera condición que se tiene es usada cuando el jugador uno tiene mas 
+puntos que el jugador dos, si esta condición se cumple, se imprimirá un texto diciendo que 
+gano el jugador uno, y así correspondientes las otras condiciones, ya que se ejecuta el código 
+en la función correspondiente se pasa a renovar las variables a sus valores base, se reinicia los 
+contadores de tiempo y se marca como verdadero una variable booleana para iniciar otra ronda 
+del juego.
+Las siguientes funciones son para el zumbador utilizado. Este zumbador se activa usando la 
+función “tone” que pide como parámetros el numero del pin, frecuencia y duración del tono. 
+Esta función da una salida por PWM al zumbador haciendo posible tener diferentes tonos.
+A continuación, esta la sección de “loop( )” donde se encuentra todos los procesos que hacen 
+posible el funcionamiento del juego. Empezamos por declarar una variable con el tipo de dato 
+“unsigned long” que guardara el tiempo en milisegundos. Después declaramos otra variable 
+booleana que se usa para activar partes de la secuencia como se necesario. De aquí, se declaran 
+cuatro variables booleanas estáticas, esto significa que solo se pueden usar una vez por función 
+y retienen el valor original. Después de esto, se abre una condición “if” del pulsador de reinicio, 
+si esta condición se cumple, se activa la función del indicador LED verde y se usa la 
+función ”gameOver( )”, mencionado anteriormente. De aquí se pasa a otra condición donde se 
+cumple si la variable de activación “resetBall” esta en estado verdadero, si se cumple esta 
+condición pasamos a otra condición que se cumple si el puntaje del jugador uno es igual al 
+puntaje máximo o si el puntaje del jugador dos es igual al puntaje máximo. Si se cumple 
+cualquier de estas condiciones se ejecutará la función de “gameOver( )” Si no se cumple esta 
+función tenemos como opción secundaria que ejecute lo siguiente. Se limpia la pantalla, 
+después se ejecutan las funciones “drawCourt( )” y “drawScore( )” de aquí se escoge unas 
+coordenadas aleatorias para la posición inicial de la pelota con la función “random(min, max)” 
+que da valores entre los parámetros que se dan. Después de esto se utiliza un “do…while” para 
+hacer un ciclo que por lo menos corra una vez, en este ciclo tenemos que se asigne la dirección 
+del balón de forma diagonal en cualquier sentido, puede ser hacia la izquierda o derecha. A 
+continuación, se tienen unas condiciones comparativas para los pulsadores de control.
+En esta parte se tiene la asignación de valores a cuatro variables booleanas que obtienen su 
+información de los pulsadores y lo convierte a un valor booleano. Después de esto, se tienen 
+condiciones de tiempo que siempre estarán activos excepto por su reinicio con “gameOver( )” si 
+se cumple esta condición se ejecuta lo siguiente. Se tienen dos nuevas variables que consideran 
+la posición del balón cuando esta en movimiento, es decir que suma la posición anterior de la 
+pelota con el valor del movimiento en las direcciones respetivas, de esta forma podemos hacer 
+que la pelota inicie su movimiento. 
+Después se tiene una condición que se cumple si la pelota pega alguna de las paredes verticales, 
+simplemente se verifica si el valor de la nueva posición del balón llega a los limites dados que 
+son 0 y 127. Si se cumple lo anterior se reinicia el juego de nuevo volviendo al código anterior, 
+además de esto se suma un punto al puntaje del jugador quien marco el punto. También se usa 
+la función creada anteriormente para hacer un tono con el zumbador.
+A continuación, se tiene la condición que se cumple si la pelota pega alguna pared horizontal, 
+esto se verifica si el valor de la posición en “y” llega a los limites de 0 o 63. Si se cumple esto se 
+usa la función de hacer un tono en cierta frecuencia. Además, se cambia la dirección del 
+movimiento en “y” y inicia el movimiento de la pelota de nuevo.
+Después de esto se tiene otra condición que se cumple si la pelota pega alguna paleta, esto se 
+verifica comparando la posición del balón en “x” con la zona de valores donde se encuentra la 
+paleta, que es una zona de 12 pixeles. Si se cumple esto se cambia la dirección en “x” de la 
+pelota con el mismo método anterior. Esta condición se repite para la paleta del otro jugador.
+Pasando estas condiciones se tiene un segmento de código que imprime la pelota en la pantalla, 
+este se actualiza de forma constante. Después de esto se tiene una línea donde se puede 
+controlar la velocidad de la pelota, haciéndolo mas lento. 
+A continuación, se tiene una serie de condiciones y procesos para las paletas. Al principio se 
+encuentra una suma para controlar la velocidad de la paleta, después de esto se tiene un 
+proceso para imprimir una línea vertical al negativo, esto se usa para poder mantener la paleta 
+de una tamaño de 12 pixeles cuando se esta moviendo. Esta línea negativa cambia de tamaño 
+correspondiendo a la posición de la paleta. Después se tiene a una serie de condiciones para 
+parar la paleta si llega a los limites de la pantalla, si no fuera por estos limitantes la paleta se 
+desaparecería de la pantalla. Aquí también se tiene a la función para imprimir la paleta en color 
+positivo. 
+Después de esto se tiene la misma seria de procesos y condiciones para la paleta del jugador 
+opuesto.
+La combinación de esta larga serie de funciones, condiciones y procesos hace posible la 
+correcta función de nuestro video juego retro de PONG.
